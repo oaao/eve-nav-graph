@@ -12,12 +12,21 @@ def from_edges(data, k1, k2):
     edges = [(x[k1], x[k2]) for x in data]
     return edges
 
-if __name__ == "__main__":
-    jump_data = json.load(open('res/jumps.json'))
-    jumps     = from_edges(jump_data, 'fromSolarSystemID', 'toSolarSystemID')
+
+def run(data, field_from, field_to):
+
+    jump_data = json.load(open(data))
+    jumps     = from_edges(jump_data, field_from, field_to)
 
     G = nx.Graph()
     G.add_edges_from(jumps)
     print(nx.info(G))
     print(nx.density(G))
     print(type(G))
+
+    return G
+
+
+if __name__ == "__main__":
+
+    run('res/jumps.json', 'fromSolarSystemID', 'toSolarSystemID')
